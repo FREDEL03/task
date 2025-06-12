@@ -7,5 +7,5 @@ Route::group(['as' => "web.",
     'namespace' => $namespace,
     'middleware' => ["web"]
 ],function() {
-    Route::get('/','MainController@index')->name('index');;
+    Route::get('/','MainController@index')->name('home');;
 });
