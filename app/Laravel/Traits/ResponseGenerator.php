@@ -72,7 +72,7 @@ trait ResponseGenerator
         return $response;
     }
 
-    public function api_response($data){
+    public static function api_response($data){
         $meta = [
             'meta' => [
                 'copyright' => "Copyright © 2021 - ".now()->format("Y")." ".env("APP_NAME","Laravel 12"),
