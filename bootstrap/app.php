@@ -15,7 +15,6 @@ return Application::configure(basePath: dirname(__DIR__))
         //
         $middleware->append([
                 \App\Laravel\Middlewares\TrustProxies::class,
-                \Fruitcake\Cors\HandleCors::class,
                 \App\Laravel\Middlewares\PreventRequestsDuringMaintenance::class,
                 \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
                 \App\Laravel\Middlewares\TrimStrings::class,
@@ -38,5 +37,6 @@ return Application::configure(basePath: dirname(__DIR__))
 
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        \App\Exceptions\Handler::registerInExceptions($exceptions);
+
     })->create();
