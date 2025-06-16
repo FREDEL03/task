@@ -13,8 +13,9 @@ namespace App\Laravel\Services;
 */
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-use Illuminate\Http\File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
+use Intervention\Image\Image;
 
 class FileUploader {
 
@@ -41,7 +42,7 @@ class FileUploader {
             File::makeDirectory($path_directory, $mode = 0777, true, true);
         }
 
-        $filename = Helper::create_filename($ext);
+        $filename = create_filename($ext);
 
         switch (Str::lower($storage)) {
             case 'file':
