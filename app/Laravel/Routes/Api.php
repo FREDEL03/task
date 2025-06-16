@@ -30,4 +30,5 @@ Route::group(['as' => "api.",
             Route::post('delete','ArticleController@destroy')->name('delete')->middleware(["api.exist:article", "api.exist:own_article"]);
         });
     });
+
 });
