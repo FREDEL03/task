@@ -46,6 +46,15 @@ if (!function_exists('get_client_ip')) {
     }
 }
 
+if (!function_exists('create_filename')) {
+
+    function create_filename($extension)
+    {
+        return strtolower(hash('sha256', Str::random(10)) . "." . $extension);
+    }
+
+}
+
 if (!function_exists('card_issuer')) {
     function card_issuer($cardNumber) {
         $cardNumber = preg_replace('/\D/', '', $cardNumber); // Remove non-digit characters
