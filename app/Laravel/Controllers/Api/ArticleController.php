@@ -7,6 +7,7 @@ namespace App\Laravel\Controllers\Api;
  */
 
 use App\Laravel\Models\Article;
+use App\Laravel\Requests\Api\ArticleRequest;
 use App\Laravel\Requests\PageRequest;
 use App\Laravel\Services\ImageUploader;
 use App\Laravel\Traits\ResponseGenerator;
