@@ -137,7 +137,6 @@ class Handler
                     );
                     $status_code = 406;
                     break;
-
                 case "Illuminate\Foundation\Http\Exceptions\MaintenanceModeException":
                     $response = array(
                         "msg" => "Platform currently under maintenance.",
