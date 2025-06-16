@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/health',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+
         $middleware->append([
                 \App\Laravel\Middlewares\TrustProxies::class,
                 \App\Laravel\Middlewares\PreventRequestsDuringMaintenance::class,
