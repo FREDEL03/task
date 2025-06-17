@@ -3,10 +3,11 @@
 namespace App\Exceptions;
 
 use App\Laravel\Traits\ResponseGenerator;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Throwable;
 
-class Handler
+class Handler extends ExceptionHandler
 {
     use ResponseGenerator;
     public static function registerInExceptions(Exceptions $exceptions): void
@@ -145,13 +146,30 @@ class Handler
                     );
                     $status_code = 503;
                     break;
-
                 default:
-                    dd($exception);exit;
+                    if (get_class($exception) == "Symfony\Component\HttpKernel\Exception\HttpException"){
+
+                        if($api_response) {
+                            $response = array(
+                                "msg" => "Platform currently under maintenance.",
+                                "status" => FALSE,
+                                'status_code' => "MAINTENANCE_MODE"
+                            );
+
+                            if($request->input('hint')){
+                                $response['hint'] = $exception->getMessage();
+                            }
+                            return response()->json(self::api_response($response), 503);
+                        }
+
+                        return response()->view("custom::errors.503", [], 503);
+                    }else{
+                        dd($exception);
+                    }
 
             }
 
-
+            callback:
             if($api_response){
                 $response['code'] = "#".$exception->getLine();
 
@@ -167,10 +185,23 @@ class Handler
                 return redirect()->back();
             }
 
+            $status = $status_code;
+
+            if (view()->exists("custom::errors.$status")) {
+                return response()->view("custom::errors.$status", [], $status);
+            }
+            // Optional generic error view fallback
+            if (view()->exists("custom::errors.error")) {
+                return response()->view("custom::errors.error", [], $status);
+            }
+
         });
+
+
 
             // Add all other renderable/reportable logic from your old Handler render method here
         // For fallback or default, you can catch Throwable
     }
+
 }
 

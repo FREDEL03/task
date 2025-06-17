@@ -28,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
         {
             return new CustomValidator($translator, $data, $rules, $messages);
         });
+        $this->loadViewsFrom(app_path('Laravel/Views'), 'custom');
+
         app('view')->getFinder()->setPaths([app_path('Laravel/Views')]);
     }
 }
