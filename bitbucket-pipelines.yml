@@ -1,0 +1,22 @@
+image: atlassian/default-image:latest
+
+pipelines:
+  branches:
+    v12-develop: # Deploy only this branch
+      - step:
+          name: Deploy to AWS EC2 Ziademo - demo.ziademo.com
+          script:
+            # Check if the commit message contains 'Merge branch'
+            - |
+              if git log -1 --pretty=%B | grep -q "Merged"; then
+                echo "Branch merged — deploying..."
+                ssh -o StrictHostKeyChecking=no smagana@ip-10-0-2-67.ap-southeast-1.compute.internal "
+                  cd /phpweb/demo-web &&
+                  git checkout v12-develop &&
+                  git pull origin &&
+                  composer install
+                  php artisan migrate
+                "
+              else
+                echo "No branch merged — skipping deploy."
+              fi
