@@ -7,24 +7,24 @@ pipelines:
           name: Deploy to EC2 via OpenVPN
           script:
             # Check if the commit message contains 'Merge branch'
-            - |
-              if git log -1 --pretty=%B | grep -q "Merged"; then
-                echo "Branch merged — deploying..."
-                echo "$DEPLOY_KEY" | base64 -d > ~/.ssh/deploy-key
-                chmod 600 ~/.ssh/deploy-key
-                apt-get update
-                apt-get update && apt-get install -y openvpn
-                echo "$VPN_CONFIG" | base64 -d > client.ovpn
-                openvpn --config client.ovpn --daemon --log-append openvpn.log
-                sleep 15
-                cat openvpn.log
-                ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy-key smagana@10.0.2.67 "
-                  cd /phpweb/demo-web &&
-                  git checkout v12-develop &&
-                  git pull origin &&
-                  composer install &&
-                  php artisan migrate
-                "
-              else
-                echo "No branch merged — skipping deploy."
-              fi
+            # if git log -1 --pretty=%B | grep -q "Merged"; then
+            - echo "Branch merged — deploying..."
+            - echo "$DEPLOY_KEY" | base64 -d > ~/.ssh/deploy-key
+            - chmod 600 ~/.ssh/deploy-key
+            - cat ~/.ssh/deploy-key
+            - apt-get update
+            - apt-get update && apt-get install -y openvpn
+            - echo "$VPN_CONFIG" | base64 -d > client.ovpn
+            - openvpn --config client.ovpn --daemon --log-append openvpn.log
+            - sleep 15
+            - cat openvpn.log
+            # ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy-key smagana@10.0.2.67 "
+            #   cd /phpweb/demo-web &&
+            #   git checkout v12-develop &&
+            #   git pull origin &&
+            #   composer install &&
+            #   php artisan migrate
+            # "
+            # else
+            #   echo "No branch merged — skipping deploy."
+            # fi
