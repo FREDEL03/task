@@ -5,8 +5,6 @@ pipelines:
     v12-develop: # Deploy only this branch
       - step:
           name: Deploy to EC2 via OpenVPN
-          caches:
-            - apt
           script:
             # Check if the commit message contains 'Merge branch'
             - |
