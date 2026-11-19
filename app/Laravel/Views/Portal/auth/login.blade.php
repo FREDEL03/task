@@ -3,8 +3,7 @@
 @section('title', 'Log in')
 
 @section('content')
-    <h1 class="h3 mb-1">Log in</h1>
-    <p class="text-muted mb-4">No account yet? <a href="{{ route('portal.auth.register') }}">Sign up</a></p>
+    <h1 class="h3 mb-4">Log in</h1>
 
     <form method="POST" action="{{ route('portal.auth.login.submit') }}" novalidate>
         @csrf
@@ -28,4 +27,6 @@
 
         <button class="btn btn-primary w-100 btn-lg">Log in</button>
     </form>
+
+    <p class="text-center text-muted mt-3 mb-0">No account yet? <a href="{{ route('portal.auth.register') }}">Sign up</a></p>
 @endsection

@@ -3,8 +3,7 @@
 @section('title', 'Sign up')
 
 @section('content')
-    <h1 class="h3 mb-1">Sign up</h1>
-    <p class="text-muted mb-4">Already registered? <a href="{{ route('backoffice.auth.login') }}">Log in</a></p>
+    <h1 class="h3 mb-4">Sign up</h1>
 
     <form method="POST" action="{{ route('backoffice.auth.register.submit') }}" novalidate>
         @csrf
@@ -34,4 +33,6 @@
 
         <button class="btn btn-primary w-100 btn-lg">Sign up</button>
     </form>
+
+    <p class="text-center text-muted mt-3 mb-0">Already registered? <a href="{{ route('backoffice.auth.login') }}">Log in</a></p>
 @endsection
