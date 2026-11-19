@@ -6,8 +6,21 @@ use App\Laravel\Requests\PageRequest;
 
 class MainController extends Controller{
 
+    protected $data;
+
+    public function __construct(){
+        parent::__construct();
+    }
+
     public function index(PageRequest $request){
-        return view('Web.home', ['articles' => array_slice(config('articles'), 0, 3, true)]);
+        $articles = config('articles');
+
+        // the first article is the featured one, the rest go in the list
+        $this->data['featured_slug'] = array_key_first($articles);
+        $this->data['featured'] = $articles[$this->data['featured_slug']];
+        $this->data['articles'] = array_slice($articles, 1, null, true);
+
+        return view('Web.home', $this->data);
     }
 
     public function about(PageRequest $request){

@@ -7,8 +7,8 @@ use App\Laravel\Requests\RequestManager;
 class AdminRequest extends RequestManager
 {
     public function rules(){
-        // {admin} is the id in the URL: backoffice/admins/{admin}
-        $id = $this->route('admin');
+        // {id} in the URL: admin/admins/{id}
+        $id = $this->route('id');
 
         return [
             'name' => "required|between:2,100",

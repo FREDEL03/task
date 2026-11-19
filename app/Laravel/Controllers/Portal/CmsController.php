@@ -12,7 +12,7 @@ class CmsController extends Controller{
         parent::__construct();
     }
 
-    // The route only accepts: pages, media, menus (see Routes/Portal.php)
+    // The route only accepts: home, about, contact (see Routes/Portal.php)
     public function show(PageRequest $request, $page){
         return view("Portal.cms.{$page}");
     }

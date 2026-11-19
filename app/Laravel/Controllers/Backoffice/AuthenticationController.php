@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Laravel\Controllers\Portal;
+namespace App\Laravel\Controllers\Backoffice;
 
 /*
  * Request Validator
  */
-use App\Laravel\Requests\Portal\LoginRequest;
-use App\Laravel\Requests\Portal\RegisterRequest;
+use App\Laravel\Requests\Backoffice\LoginRequest;
+use App\Laravel\Requests\Backoffice\RegisterRequest;
 use App\Laravel\Requests\PageRequest;
 
-use App\Laravel\Models\User;
+use App\Laravel\Models\Admin;
 use Illuminate\Support\Facades\DB;
 
-class AuthController extends Controller{
+class AuthenticationController extends Controller{
 
     protected $data;
     protected $guard;
 
     public function __construct(){
         parent::__construct();
-        $this->guard = "portal";
+        $this->guard = "backoffice";
     }
 
-    public function showLogin(PageRequest $request){
-        return view('Portal.auth.login');
+    public function login(PageRequest $request){
+        return view('Backoffice.auth.login');
     }
 
-    public function login(LoginRequest $request){
+    public function authenticate(LoginRequest $request){
         $email = strtolower($request->input('email'));
         $password = $request->input('password');
 
@@ -39,31 +39,31 @@ class AuthController extends Controller{
         $request->session()->regenerate();
         session()->flash('notification-status', "success");
         session()->flash('notification-msg', "Welcome back!");
-        return redirect()->route('portal.home');
+        return redirect()->route('backoffice.dashboard');
     }
 
-    public function showRegister(PageRequest $request){
-        return view('Portal.auth.register');
+    public function register(PageRequest $request){
+        return view('Backoffice.auth.register');
     }
 
-    public function register(RegisterRequest $request){
+    public function store(RegisterRequest $request){
         DB::beginTransaction();
         try{
-            $user = new User();
-            $user->name = $request->input('name');
-            $user->email = strtolower($request->input('email'));
-            $user->password = bcrypt($request->input('password'));
-            $user->save();
+            $admin = new Admin();
+            $admin->name = $request->input('name');
+            $admin->email = strtolower($request->input('email'));
+            $admin->password = bcrypt($request->input('password'));
+            $admin->save();
 
             DB::commit();
 
-            // log the new user in right away
-            auth($this->guard)->login($user);
+            // log the new admin in right away
+            auth($this->guard)->login($admin);
             $request->session()->regenerate();
 
             session()->flash('notification-status', "success");
             session()->flash('notification-msg', "Account created. Welcome!");
-            return redirect()->route('portal.home');
+            return redirect()->route('backoffice.dashboard');
         }catch(\Exception $e){
             DB::rollback();
             session()->flash('notification-status', "error");
@@ -78,6 +78,6 @@ class AuthController extends Controller{
 
         session()->flash('notification-status', "success");
         session()->flash('notification-msg', "You have been logged out.");
-        return redirect()->route('portal.auth.login');
+        return redirect()->route('backoffice.auth.login');
     }
 }

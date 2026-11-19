@@ -5,7 +5,7 @@
 @section('content')
     <h1 class="h3 mb-4">Sign up</h1>
 
-    <form method="POST" action="{{ route('portal.auth.register.submit') }}" novalidate>
+    <form method="POST" action="{{ route('portal.auth.store') }}" novalidate>
         @csrf
 
         <div class="mb-3">

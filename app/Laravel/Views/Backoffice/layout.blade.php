@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @include('Shared.partials.head')
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
     <title>@yield('title', 'Article Backoffice')</title>
 </head>
 <body>
@@ -52,7 +56,12 @@
         </header>
 
         <main class="flex-grow-1 p-3 p-lg-4">
-            @include('Shared.partials.flash')
+            {{-- Message from session()->flash('notification-status') and ('notification-msg') --}}
+            @if (session('notification-msg'))
+                <div class="alert alert-{{ session('notification-status') == 'error' ? 'danger' : session('notification-status') }}" role="alert">
+                    {{ session('notification-msg') }}
+                </div>
+            @endif
             @yield('content')
         </main>
     </div>

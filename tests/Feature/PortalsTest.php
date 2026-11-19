@@ -21,24 +21,24 @@ test('web topbar shows the portal user name and portal button', function () {
 });
 
 test('portal requires login and shows cms pages', function () {
-    $this->get('/portal')->assertRedirect('/portal/login');
+    $this->get('/user')->assertRedirect('/user/login');
 
     $this->actingAs(User::factory()->create(), 'portal');
-    foreach (['/portal', '/portal/profile', '/portal/profile/edit', '/portal/cms/pages', '/portal/cms/media', '/portal/cms/menus'] as $url) {
+    foreach (['/user', '/user/profile', '/user/profile/edit', '/user/cms/home', '/user/cms/about', '/user/cms/contact'] as $url) {
         $this->get($url)->assertOk();
     }
 });
 
 test('portal register and login work', function () {
-    $this->post('/portal/register', ['name' => 'New', 'email' => 'n@x.com', 'password' => 'password1', 'password_confirmation' => 'password1'])
-        ->assertRedirect('/portal');
+    $this->post('/user/register', ['name' => 'New', 'email' => 'n@x.com', 'password' => 'password1', 'password_confirmation' => 'password1'])
+        ->assertRedirect('/user');
     $this->assertAuthenticatedAs(User::first(), 'portal');
 });
 
 test('guards are separate', function () {
-    $this->actingAs(User::factory()->create(), 'portal')->get('/backoffice')->assertRedirect('/backoffice/login');
+    $this->actingAs(User::factory()->create(), 'portal')->get('/admin')->assertRedirect('/admin/login');
     $this->actingAs(Admin::create(['name' => 'A', 'email' => 'a@x.com', 'password' => 'password1']), 'backoffice')
-        ->get('/backoffice')->assertOk();
+        ->get('/admin')->assertOk();
 });
 
 test('backoffice manages accounts without create and cannot delete self', function () {
@@ -46,17 +46,17 @@ test('backoffice manages accounts without create and cannot delete self', functi
     $user = User::factory()->create();
     $this->actingAs($admin, 'backoffice');
 
-    foreach (['/backoffice/admins', '/backoffice/users', "/backoffice/users/{$user->id}", "/backoffice/users/{$user->id}/edit", '/backoffice/profile', '/backoffice/profile/edit'] as $url) {
+    foreach (['/admin/admins', '/admin/users', "/admin/users/{$user->id}", "/admin/users/{$user->id}/edit", '/admin/profile', '/admin/profile/edit'] as $url) {
         $this->get($url)->assertOk();
     }
-    $this->get('/backoffice/users/create')->assertNotFound();
+    $this->get('/admin/users/create')->assertNotFound();
 
-    $this->put("/backoffice/users/{$user->id}", ['name' => 'Renamed', 'email' => $user->email])->assertRedirect();
+    $this->put("/admin/users/{$user->id}", ['name' => 'Renamed', 'email' => $user->email])->assertRedirect();
     expect($user->fresh()->name)->toBe('Renamed');
 
-    $this->delete("/backoffice/admins/{$admin->id}")->assertSessionHas('notification-status', 'error');
+    $this->delete("/admin/admins/{$admin->id}")->assertSessionHas('notification-status', 'error');
     expect(Admin::count())->toBe(1);
 
-    $this->delete("/backoffice/users/{$user->id}");
+    $this->delete("/admin/users/{$user->id}");
     expect(User::count())->toBe(0);
 });

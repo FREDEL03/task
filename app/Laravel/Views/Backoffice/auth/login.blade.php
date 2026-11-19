@@ -5,7 +5,7 @@
 @section('content')
     <h1 class="h3 mb-4">Log in</h1>
 
-    <form method="POST" action="{{ route('backoffice.auth.login.submit') }}" novalidate>
+    <form method="POST" action="{{ route('backoffice.auth.login') }}" novalidate>
         @csrf
 
         <div class="mb-3">
