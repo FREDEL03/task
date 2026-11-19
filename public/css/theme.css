@@ -97,7 +97,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand { font-weight: 700; letter-spacing: -.02em
 .panel-sidebar .nav-link { color: var(--muted); font-weight: 500; border-radius: .6rem; padding: .55rem .85rem; }
 .panel-sidebar .nav-link:hover { background: var(--paper); color: var(--ink); }
 .panel-sidebar .nav-link.active { background: var(--cobalt-tint); color: var(--cobalt); font-weight: 700; }
-.nav-label { color: var(--muted); font-size: .8rem; font-weight: 600; margin: 1.2rem 0 .3rem .85rem; list-style: none; }
+.nav-label { color: #9aa0a6; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin: 1.4rem 0 .3rem .85rem; list-style: none; cursor: default; user-select: none; pointer-events: none; }
 .panel-topbar { position: sticky; top: 0; z-index: 10; }
 .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--marigold); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
 .avatar--lg { width: 64px; height: 64px; font-size: 1.6rem; }
@@ -105,3 +105,5 @@ h1, h2, h3, h4, h5, h6, .navbar-brand { font-weight: 700; letter-spacing: -.02em
 .stat--hero { background: var(--marigold); border-color: var(--marigold); }
 .stat .value { font-size: 2.2rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; }
 @media (max-width: 991.98px) { .panel-sidebar { width: 280px; min-height: 0; } }
+/* Sidebar stays put while the page scrolls (desktop only; mobile uses offcanvas) */
+@media (min-width: 992px) { .panel-sidebar { position: sticky; top: 0; align-self: flex-start; height: 100vh; overflow-y: auto; } }

@@ -28,12 +28,10 @@
                 <li><a class="nav-link {{ request()->routeIs('portal.profile.*') ? 'active' : '' }}" href="{{ route('portal.profile.show') }}">My profile</a></li>
 
                 <li class="nav-label">Content</li>
-                <li><a class="nav-link {{ request()->is('user/cms/home') ? 'active' : '' }}" href="{{ route('portal.cms.show', 'home') }}">Home</a></li>
-                <li><a class="nav-link {{ request()->is('user/cms/about') ? 'active' : '' }}" href="{{ route('portal.cms.show', 'about') }}">About</a></li>
-                <li><a class="nav-link {{ request()->is('user/cms/contact') ? 'active' : '' }}" href="{{ route('portal.cms.show', 'contact') }}">Contact Us</a></li>
+                <li><a class="nav-link {{ request()->is('user/cms/home') ? 'active' : '' }}" href="{{ route('portal.cms.home') }}">Home</a></li>
+                <li><a class="nav-link {{ request()->is('user/cms/about') ? 'active' : '' }}" href="{{ route('portal.cms.about') }}">About</a></li>
+                <li><a class="nav-link {{ request()->is('user/cms/contact') ? 'active' : '' }}" href="{{ route('portal.cms.contact') }}">Contact Us</a></li>
 
-                <li class="nav-label">Website</li>
-                <li><a class="nav-link" href="{{ route('web.home') }}">View website</a></li>
             </ul>
         </div>
     </aside>

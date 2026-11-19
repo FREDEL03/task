@@ -30,9 +30,10 @@ Route::group(['as' => "portal.",
             Route::post('edit', ['as' => 'update', 'uses' => 'ProfileController@update']);
         });
 
-        // CMS pages: add a name to the 'where' below and a matching Views/Portal/cms/<name>.blade.php
         Route::group(['prefix' => 'cms', 'as' => 'cms.'], function () {
-            Route::get('{page}', ['as' => 'show', 'uses' => 'CmsController@show'])->where('page', 'home|about|contact');
+            Route::get('home', ['as' => 'home', 'uses' => 'CmsHomeController@index']);
+            Route::get('about', ['as' => 'about', 'uses' => 'CmsAboutController@index']);
+            Route::get('contact', ['as' => 'contact', 'uses' => 'CmsContactController@index']);
         });
     });
 });
