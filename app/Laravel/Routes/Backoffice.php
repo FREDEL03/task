@@ -13,7 +13,6 @@ Route::group(['as' => "backoffice.",
     Route::group(['as' => 'auth.', 'middleware' => 'backoffice.guest'], function () {
         Route::get('login', ['as' => 'login', 'uses' => 'AuthenticationController@login']);
         Route::post('login', ['uses' => 'AuthenticationController@authenticate']);
-
         Route::get('register', ['as' => 'register', 'uses' => 'AuthenticationController@register']);
         Route::post('register', ['as' => 'store', 'uses' => 'AuthenticationController@store']);
     });
@@ -21,9 +20,7 @@ Route::group(['as' => "backoffice.",
     // Logged-in admins only
     Route::group(['middleware' => 'backoffice.auth'], function () {
         Route::get('/', ['as' => 'dashboard', 'uses' => 'MainController@index']);
-
         Route::post('logout', ['as' => 'auth.logout', 'uses' => 'AuthenticationController@logout']);
-
         Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
             Route::get('/', ['as' => 'show', 'uses' => 'ProfileController@show']);
             Route::get('edit', ['as' => 'edit', 'uses' => 'ProfileController@edit']);
