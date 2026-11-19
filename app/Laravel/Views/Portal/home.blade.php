@@ -1,12 +1,20 @@
 @extends('Portal.layout')
 
+@section('title', 'Dashboard')
+
 @section('content')
-    <h1 class="h3 mb-3">Welcome, {{ auth('portal')->user()->name }}</h1>
+    <h1 class="h3 mb-4">Welcome back, {{ auth('portal')->user()->name }}</h1>
+
+    {{-- Static numbers for now --}}
     <div class="row g-3">
-        @foreach (['Articles written' => 12, 'Total views' => '3,480', 'Drafts' => 2] as $label => $value)
-            <div class="col-md-4"><div class="card"><div class="card-body">
-                <div class="text-muted small">{{ $label }}</div><div class="fs-2 fw-bold">{{ $value }}</div>
-            </div></div></div>
-        @endforeach
+        <div class="col-md-4">
+            <div class="stat stat--hero"><div>Articles written</div><div class="value">12</div></div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat"><div class="text-muted">Total views</div><div class="value">3,480</div></div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat"><div class="text-muted">Drafts</div><div class="value">2</div></div>
+        </div>
     </div>
 @endsection

@@ -2,11 +2,19 @@
 
 namespace App\Laravel\Controllers\Portal;
 
+use App\Laravel\Requests\PageRequest;
+
 class CmsController extends Controller{
 
-    // The route's ->where() limits $page to the known CMS views.
-    public function show($page){
-        return view("Portal.cms.$page");
+    protected $data;
+
+    public function __construct(){
+        parent::__construct();
+    }
+
+    // The route only accepts: pages, media, menus (see Routes/Portal.php)
+    public function show(PageRequest $request, $page){
+        return view("Portal.cms.{$page}");
     }
 
 }

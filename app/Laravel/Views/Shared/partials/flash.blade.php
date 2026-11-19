@@ -1,5 +1,6 @@
-@foreach (['success', 'error'] as $type)
-    @if (session($type))
-        <div class="alert alert-{{ $type === 'error' ? 'danger' : 'success' }}" role="alert">{{ session($type) }}</div>
-    @endif
-@endforeach
+{{-- Shows the message set with session()->flash('notification-status', ...) and ('notification-msg', ...) --}}
+@if (session('notification-msg'))
+    <div class="alert alert-{{ session('notification-status') == 'error' ? 'danger' : session('notification-status') }}" role="alert">
+        {{ session('notification-msg') }}
+    </div>
+@endif

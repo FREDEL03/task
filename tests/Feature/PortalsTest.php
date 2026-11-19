@@ -54,7 +54,7 @@ test('backoffice manages accounts without create and cannot delete self', functi
     $this->put("/backoffice/users/{$user->id}", ['name' => 'Renamed', 'email' => $user->email])->assertRedirect();
     expect($user->fresh()->name)->toBe('Renamed');
 
-    $this->delete("/backoffice/admins/{$admin->id}")->assertSessionHas('error');
+    $this->delete("/backoffice/admins/{$admin->id}")->assertSessionHas('notification-status', 'error');
     expect(Admin::count())->toBe(1);
 
     $this->delete("/backoffice/users/{$user->id}");
