@@ -28,7 +28,15 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->group('web', [
             \App\Laravel\Middlewares\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \App\Laravel\Middlewares\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ]);
+
+        $middleware->alias([
+            'portal.auth' => \App\Laravel\Middlewares\Portal\Authenticate::class,
+            'portal.guest' => \App\Laravel\Middlewares\Portal\RedirectIfAuthenticated::class,
+            'backoffice.auth' => \App\Laravel\Middlewares\Backoffice\Authenticate::class,
+            'backoffice.guest' => \App\Laravel\Middlewares\Backoffice\RedirectIfAuthenticated::class,
         ]);
 
         $middleware->group('api', [
