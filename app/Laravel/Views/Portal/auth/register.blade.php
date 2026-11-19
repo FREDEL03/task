@@ -22,13 +22,19 @@
 
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
-            @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            <div class="pw-field">
+                <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
+                <button type="button" class="pw-toggle" aria-label="Show password" onclick="const i = this.parentNode.querySelector('input'), s = i.type == 'password'; i.type = s ? 'text' : 'password'; this.firstElementChild.className = s ? 'bi bi-eye-slash' : 'bi bi-eye'"><i class="bi bi-eye"></i></button>
+                @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="password_confirmation" class="form-label">Confirm password</label>
-            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+            <div class="pw-field">
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+                <button type="button" class="pw-toggle" aria-label="Show password" onclick="const i = this.parentNode.querySelector('input'), s = i.type == 'password'; i.type = s ? 'text' : 'password'; this.firstElementChild.className = s ? 'bi bi-eye-slash' : 'bi bi-eye'"><i class="bi bi-eye"></i></button>
+            </div>
         </div>
 
         <button class="btn btn-primary w-100 btn-lg">Sign up</button>

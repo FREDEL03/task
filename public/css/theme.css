@@ -107,3 +107,8 @@ h1, h2, h3, h4, h5, h6, .navbar-brand { font-weight: 700; letter-spacing: -.02em
 @media (max-width: 991.98px) { .panel-sidebar { width: 280px; min-height: 0; } }
 /* Sidebar stays put while the page scrolls (desktop only; mobile uses offcanvas) */
 @media (min-width: 992px) { .panel-sidebar { position: sticky; top: 0; align-self: flex-start; height: 100vh; overflow-y: auto; } }
+/* Password field with an eye toggle inside the input */
+.pw-field { position: relative; }
+.pw-field .form-control { padding-right: 2.5rem; background-image: none; }
+.pw-toggle { position: absolute; top: 0; right: 0; height: calc(1.5em + .75rem + 2px); width: 2.5rem; border: 0; background: none; color: var(--muted); }
+.pw-toggle:hover { color: var(--ink); }
