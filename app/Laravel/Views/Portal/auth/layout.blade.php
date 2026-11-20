@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
     <title>@yield('title')</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=1">
 </head>
 <body>
 <div class="row g-0 min-vh-100">

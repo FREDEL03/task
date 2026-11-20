@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
     <title>@yield('title', 'Article Portal')</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=1">
 </head>
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg site-nav sticky-top">
